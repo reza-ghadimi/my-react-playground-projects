@@ -1,0 +1,30 @@
+#container {
+  width: fit-content;
+  height: fit-content;
+  margin: 1em auto;
+  min-width: 400px;
+  min-height: 400px;
+  position: relative;
+  background-color: whitesmoke;
+  border-radius: 1%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#container h1 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.players {
+  margin: 1em;
+}
+
+.players ol {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}
