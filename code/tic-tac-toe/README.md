@@ -1,4 +1,3 @@
-Here's a **README.md** tailored to your project structure:  
 
 ---
 
