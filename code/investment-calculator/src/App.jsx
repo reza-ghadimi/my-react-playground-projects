@@ -27,7 +27,7 @@ function App() {
       <Header />
 
       <InvestmentInputForm onChange={handleChange} investmentValues={investmentValues} />
-      {isDurationValid == false ? (<p>Please enter valid duration</p>) : (<InvestmentResultsTable investmentValues={investmentValues} />)}
+      {isDurationValid ? (<InvestmentResultsTable investmentValues={investmentValues} />) : (<p>Please enter valid duration</p>)}
     </div >
   )
 }
