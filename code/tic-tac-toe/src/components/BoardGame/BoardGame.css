@@ -1,28 +1,37 @@
-.boardGame {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    padding: 25px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.boardGameCell {
-    width: 100px;
-    height: 100px;
+#game-board {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
-    background-color: white;
-    border: 3px solid black;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    gap: 2rem;
+    margin: 3rem 0;
+    padding: 0;
+    padding-bottom: 2em;
+    flex-direction: column;
 }
 
-.boardGameCell:hover {
-    background-color: #ddd;
+#game-board ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+#game-board button {
+    width: 8rem;
+    height: 8rem;
+    border: none;
+    background: blanchedalmond;
+    color: #3f3b00;
+    font-size: 5rem;
+    cursor: pointer;
+    font-family: 'Caprasimo', cursive;
+    padding: 1rem;
 }
