@@ -78,7 +78,7 @@
    - **What I learned**: React's **event handling** system allows passing event handlers like `onChange` and `onClick` as props to components, making it easy to manage user interactions.
    - **Example**: In `Input` components, the `onChange` handler updates the state when users modify the input fields:
    ```js
-   onChange={(e) => onChange({ value: e.target.value, key: 'initialInvestment' })}
+   onChange={(e) => onChange({ value: e, key: 'initialInvestment' })}
    ```
 
 ---
