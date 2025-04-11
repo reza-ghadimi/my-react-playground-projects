@@ -1,76 +1,80 @@
-import './App.css'
+import './App.css';
 
-import { useState } from 'react'
+import { useState } from 'react';
 
-import Sidebar from './components/Sidebar.jsx'
-import Project from './components/Project.jsx'
+import Sidebar from './components/Sidebar.jsx';
+import Project from './components/Project.jsx';
 
-function App() {
+const App = () => {
+  const [state, setState] = useState({
+    selectedProject: null,
+    projects: [],
+  });
 
-  const [projects, setProjects] = useState([]);
-  const [project, selectProject] = useState(null);
+  const { selectedProject, projects } = state;
 
   function openProject({ id } = {}) {
     if (id == null) {
-      selectProject(null);
+      setState((current) => ({
+        ...current,
+        selectedProject: null,
+      }));
     } else {
-      const selectedProject = projects.find((p) => p.id === id);
-      if (selectedProject) {
-        selectProject({ ...selectedProject });
-      } else {
-        selectProject(null);
-      }
+      const foundProject = projects.find((project) => project.id === id);
+      setState((current) => ({
+        ...current,
+        selectedProject: foundProject,
+      }));
     }
   }
 
   function saveProject({ project }) {
-    console.log(`saveProject: ${project?.id}`);
-
-    // Ensure the project gets an ID, either from the current project or the max id + 1
-    project.id = project?.id ?? (projects.length > 0 ? Math.max(...projects.map((p) => p.id)) + 1 : 1);
-
-    console.log(`saveProject: ${project?.id}`);
+    const projectId = project?.id ?? (projects.length > 0 ? Math.max(...projects.map((p) => p.id)) + 1 : 1);
 
     const currentProject = {
-      id: project.id,
-      title: project.title,
-      tasks: project.tasks,
-      dueDate: project.dueDate,
-      description: project.description
+      ...project,
+      id: projectId,
     };
 
-    setProjects((prevProjects) => {
-      const index = prevProjects.findIndex((p) => p.id === currentProject.id);
+    const updatedProjects = [...projects];
+    const index = updatedProjects.findIndex((p) => p.id === projectId);
 
-      if (index !== -1) {
-        // Update the existing project
-        const updated = [...prevProjects];
-        updated[index] = currentProject;
-        return updated;
-      }
+    if (index !== -1) {
+      updatedProjects[index] = currentProject;
+    } else {
+      updatedProjects.push(currentProject);
+    }
 
-      // Add new project if it doesn't exist
-      return [...prevProjects, currentProject];
-    });
-
-    // Immediately select the project after saving (this will allow the delete button to show)
-    selectProject({ ...currentProject });
+    setState((prev) => ({
+      ...prev,
+      selectedProject: currentProject,
+      projects: updatedProjects,
+    }));
   }
 
   function deleteProject({ id }) {
-    setProjects((prevProjects) => prevProjects.filter((project) => project.id !== id));
+    const filteredProjects = projects.filter((project) => project.id !== id);
 
-    selectProject(null);
+    setState((current) => ({
+      ...current,
+      projects: filteredProjects,
+      selectedProject: null,
+    }));
   }
 
   return (
     <>
-      <Sidebar projectsList={projects} handleClick={openProject} />
+      <Sidebar projects={projects} selectedId={selectedProject?.id} handleClick={openProject} />
       <div className="flex-1 overflow-y-auto bg-white">
-        <Project key={project?.id ?? 'new'} project={project} handleDelete={deleteProject} handleSave={saveProject} />
+        <Project
+          key={selectedProject?.id ?? 'new'}
+          project={selectedProject}
+          handleDelete={deleteProject}
+          handleSave={saveProject}
+        />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
